@@ -209,18 +209,7 @@ export default function CompanyPage() {
 
                         <AnimatedSection delay={100}>
                             <div className="bg-gray-50 rounded-xl p-6 md:p-10">
-                                <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start">
-                                    <div className="w-36 h-36 md:w-48 md:h-48 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 shadow-lg relative">
-                                        <Image
-                                            src="/images/japanese_people/ceo_takumi_new.jpg"
-                                            alt="橋爪 拓海"
-                                            fill
-                                            className="object-cover"
-                                            sizes="(max-width: 768px) 144px, 192px"
-                                            quality={95}
-                                        />
-                                    </div>
-                                    <div className="flex-1 text-center md:text-left">
+                                <div className="text-center md:text-left">
                                         <p className="text-xs md:text-sm text-gray-800 font-medium mb-1">代表取締役</p>
                                         <h3 className="text-xl md:text-3xl font-bold mb-1 text-gray-900">橋爪 拓海</h3>
                                         <p className="text-gray-500 text-xs md:text-sm mb-4 md:mb-6">Takumi Hashizume</p>
@@ -235,7 +224,6 @@ export default function CompanyPage() {
                                                 人にしかできないことで、ビジネスの勝ち筋をデザインする。
                                             </p>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </AnimatedSection>
