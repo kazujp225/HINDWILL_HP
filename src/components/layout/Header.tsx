@@ -210,10 +210,10 @@ export function Header() {
 
             {/* Full-screen Menu Overlay */}
             <div
-                className={`fixed inset-0 z-40 bg-[#FAFAFA] flex transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+                className={`fixed inset-0 z-40 bg-[#FAFAFA] flex flex-col md:flex-row transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
             >
-                {/* Left: Video */}
-                <div className="hidden md:block w-1/2 h-full relative overflow-hidden">
+                {/* Video panel: top on mobile, left on desktop */}
+                <div className="block w-full h-[40vh] md:w-1/2 md:h-full relative overflow-hidden flex-shrink-0">
                     <video
                         ref={menuVideoRef}
                         autoPlay
@@ -235,9 +235,9 @@ export function Header() {
                     </video>
                     <div className="absolute inset-0 bg-black/40" />
                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-                    {/* Simple large wave divider */}
+                    {/* Wave divider — vertical on desktop only */}
                     <svg
-                        className="absolute top-0 right-0 h-full w-48"
+                        className="hidden md:block absolute top-0 right-0 h-full w-48"
                         viewBox="0 0 150 1000"
                         preserveAspectRatio="none"
                     >
@@ -256,9 +256,9 @@ export function Header() {
                     </svg>
                 </div>
 
-                {/* Right: Menu Content */}
-                <div className="w-full md:w-1/2 h-full flex flex-col">
-                    <div className="flex-1 flex flex-col justify-center px-8 md:px-16 py-24">
+                {/* Menu Content: bottom on mobile, right on desktop */}
+                <div className="w-full flex-1 md:w-1/2 md:h-full md:flex-none flex flex-col min-h-0 overflow-y-auto">
+                    <div className="flex-1 flex flex-col justify-center px-8 md:px-16 py-8 md:py-24">
                         {/* Main Navigation */}
                         <nav className="w-full">
                             <ul className="grid grid-cols-2 gap-x-8 gap-y-6">
@@ -287,7 +287,7 @@ export function Header() {
 
                         {/* Contact Button */}
                         <div
-                            className={`mt-12 transform transition-all duration-500 ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                            className={`mt-6 md:mt-12 transform transition-all duration-500 ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
                             style={{ transitionDelay: menuOpen ? '650ms' : '0ms' }}
                         >
                             <Link
