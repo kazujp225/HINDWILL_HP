@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, Mail } from "lucide-react";
 import { Logo } from "@/components/common/Logo";
 
@@ -18,6 +18,7 @@ export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isOverDark, setIsOverDark] = useState(true);
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+    const menuVideoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         const checkBackground = () => {
@@ -134,6 +135,21 @@ export function Header() {
         return () => { document.body.style.overflow = ""; };
     }, [menuOpen]);
 
+    // Force-play menu background video when menu opens (prevents browser play overlay)
+    useEffect(() => {
+        const video = menuVideoRef.current;
+        if (!video) return;
+        if (menuOpen) {
+            video.muted = true;
+            video.play().catch(() => {
+                // Retry on next frame in case the element was hidden
+                requestAnimationFrame(() => {
+                    video.play().catch(() => {});
+                });
+            });
+        }
+    }, [menuOpen]);
+
     return (
         <>
             <header className="fixed top-0 left-0 right-0 z-50 h-[70px] flex items-center justify-between px-6 md:px-10">
@@ -198,13 +214,20 @@ export function Header() {
                 {/* Left: Video */}
                 <div className="hidden md:block w-1/2 h-full relative overflow-hidden">
                     <video
+                        ref={menuVideoRef}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
+                        preload="auto"
+                        disablePictureInPicture
+                        disableRemotePlayback
+                        controls={false}
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
                     >
-                        <source src="/videos/hero.mp4" type="video/mp4" />
+                        <source src="/videos/hero-3.mp4" type="video/mp4" />
                     </video>
                     <div className="absolute inset-0 bg-black/30" />
                     {/* Simple large wave divider */}
