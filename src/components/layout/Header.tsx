@@ -135,12 +135,13 @@ export function Header() {
         return () => { document.body.style.overflow = ""; };
     }, [menuOpen]);
 
-    // Force-play menu background video when menu opens (prevents browser play overlay)
+    // Force-play menu background video when menu opens, matching FV (0.8x speed, muted)
     useEffect(() => {
         const video = menuVideoRef.current;
         if (!video) return;
         if (menuOpen) {
             video.muted = true;
+            video.playbackRate = 0.8;
             video.play().catch(() => {
                 // Retry on next frame in case the element was hidden
                 requestAnimationFrame(() => {
@@ -225,11 +226,15 @@ export function Header() {
                         controls={false}
                         tabIndex={-1}
                         aria-hidden="true"
-                        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+                        className="absolute inset-0 w-full h-full object-cover scale-105 pointer-events-none select-none"
+                        style={{
+                            animation: "slowZoom 20s ease-in-out infinite alternate",
+                        }}
                     >
                         <source src="/videos/hero-3.mp4" type="video/mp4" />
                     </video>
-                    <div className="absolute inset-0 bg-black/30" />
+                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
                     {/* Simple large wave divider */}
                     <svg
                         className="absolute top-0 right-0 h-full w-48"
